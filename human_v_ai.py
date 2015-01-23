@@ -29,11 +29,9 @@ stick_dict={}
 for number in range(1,num_sticks+1):
 	stick_dict["hat{0}".format(number)]=[[1,2,3]]
 
-print d
 
 
 
-'''
 while num_sticks!=0:
 	#player 1
 	while True:
@@ -57,4 +55,56 @@ while num_sticks!=0:
 		print("Ok, there are %s sticks on the board.") % (num_sticks)
 		print("|")*num_sticks
 
+
+
+	#test = [[1, 2, 3]]
+	#guess = random.choice(test[0])
+
+
+	#AI player
+	guess = random.choice(stick_dict["hat{0}".format(num_sticks)][0])
+	print guess
+
+
+	#test.append(guess)
+
+	stick_dict["hat{0}".format(num_sticks)].append(guess)
+	print stick_dict
+
+	#If the AI loses
+	for key in stick_dict:
+		if len(stick_dict[key]) == 2:
+			del stick_dict[key][1]
+
+	#If the AI wins
+	for key in stick_dict:
+	if len(stick_dict[key]) == 2:
+		stick_dict[key][0].append(stick_dict[key][1])
+		del stick_dict[key][1]
+
+	break
+
+
+
+
+
+
+
+
+
+
+
 '''
+for element in stick_dict["hat{0}".format(num_sticks)][0]:
+	print element
+	#for number in element:
+	if number == guess:
+			element.remove(guess)
+'''
+
+
+
+
+
+
+
