@@ -7,100 +7,111 @@ Hat Tip: http://nifty.stanford.edu/2014/laaksonen-vihavainen-game-of-sticks/hand
 '''
 
 import random
+import sys
 
-"Global Variables"
+#Global Variables used throughout
 prompt = '>>> ' 
 btw_1_3 = 'Please pick a number beteween 1 and 3.'
-#player_1 = 0
-#player_2 = 0
+play_again_msg = 'Play again (1 = yes, 0 = no)?'
 
+
+#Introduction to the game
 raw_input("Welcome to the game of sticks! Press <Enter> to continue...")
-
-
-
-
 print("How many sticks are there on the table initially (10-100)?")
 num_sticks = int(raw_input(prompt))
 print("Ok, there are %s sticks on the board.") % (num_sticks)
 print("|")*num_sticks
 
-
+#Initialize a dictionary that we will add to in the loop
 stick_dict={}
 for number in range(1,num_sticks+1):
 	stick_dict["hat{0}".format(number)]=[[1,2,3]]
 
 
+#Create an "infinite loop" so the program will continue to iterate
+while True:
+	while num_sticks!=0:
 
+		#PLAYER 1
 
-while num_sticks!=0:
-	#player 1
-	while True:
-		print "Player 1: How many sticks do you take (1-3)?"
-		player_1 =  int(raw_input(prompt))
+		#Continues to iterate until you give a number between 1 and 3
+		while True:
+			print "Player 1: How many sticks do you take (1-3)?"
+			player_1 =  int(raw_input(prompt))
+			
+			if 1 <= player_1 <= 3:
+				break
+			else:
+				print (btw_1_3)
+
+		#Takes the user input and calculates the new number of sticks
+		num_sticks = num_sticks - player_1
+
+		#Different messages for different conditions
+		if num_sticks == 1:
+			print("Ok, there is %s stick on the board.") % (num_sticks)
+			print("|")*num_sticks
+
+		#Important: If Player 1 loses, then we keep the proper values
+		elif num_sticks < 1:
+			print("Player 1, you lose.")
+
+			#If Player 1 loses, then the AI wins and we want to execute this 
+			for key in stick_dict:
+				if len(stick_dict[key]) == 2:
+					stick_dict[key][0].append(stick_dict[key][1])
+					del stick_dict[key][1]
+					num_sticks = 10
+
 		
-		if 1 <= player_1 <= 3:
-			break
+		#Just keep playing
 		else:
-			print (btw_1_3)
-
-	num_sticks = num_sticks - player_1
-	if num_sticks == 1:
-		print("Ok, there is %s stick on the board.") % (num_sticks)
-		print("|")*num_sticks
-
-	elif num_sticks == 0:
-		print("Player 1, you lose.")
-		break
-	else:
-		print("Ok, there are %s sticks on the board.") % (num_sticks)
-		print("|")*num_sticks
+			print("Ok, there are %s sticks on the board.") % (num_sticks)
+			print("|")*num_sticks
 
 
 
-	#test = [[1, 2, 3]]
-	#guess = random.choice(test[0])
+		#AI player
+
+		#Random guess generator
+		guess = random.choice(stick_dict["hat{0}".format(num_sticks)][0])
+		if guess > 1:
+			print "The computer chose %s sticks" % (guess)
+		elif guess == 1:
+			print "The computer chose %s stick" % (guess)
+
+		#Append that guess to a list that corresponds with the proper "hat"
+		stick_dict["hat{0}".format(num_sticks)].append(guess)
+		print stick_dict
+
+		#Calculates the number of sticks after the computer's guess
+		num_sticks = num_sticks - guess
 
 
-	#AI player
-	guess = random.choice(stick_dict["hat{0}".format(num_sticks)][0])
-	print guess
+		if num_sticks == 1:
+			print("Ok, there is %s stick on the board.") % (num_sticks)
+			print("|")*num_sticks
+
+		#Important: Here the AI loses, we delete its guesses, and reset num_sticks
+		elif num_sticks < 1:
+			print("Player 2 (AI BOT), you lose.")
+			#If the AI loses
+			for key in stick_dict:
+				if len(stick_dict[key]) == 2:
+					del stick_dict[key][1]
+					num_sticks = 10
+			#print(play_again_msg)
+			#play_again_binary = int(raw_input(prompt))
+
+		else:
+			print("Ok, there are %s sticks on the board.") % (num_sticks)
+			print("|")*num_sticks
 
 
-	#test.append(guess)
-
-	stick_dict["hat{0}".format(num_sticks)].append(guess)
-	print stick_dict
-
-	#If the AI loses
-	for key in stick_dict:
-		if len(stick_dict[key]) == 2:
-			del stick_dict[key][1]
-
-	#If the AI wins
-	for key in stick_dict:
-	if len(stick_dict[key]) == 2:
-		stick_dict[key][0].append(stick_dict[key][1])
-		del stick_dict[key][1]
-
-	break
-
-
+	
 
 
 
-
-
-
-
-
-
-'''
-for element in stick_dict["hat{0}".format(num_sticks)][0]:
-	print element
-	#for number in element:
-	if number == guess:
-			element.remove(guess)
-'''
 
 
 
