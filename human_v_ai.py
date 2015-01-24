@@ -4,6 +4,13 @@
 Game of Sticks:
 Human v. Human Sticks
 Hat Tip: http://nifty.stanford.edu/2014/laaksonen-vihavainen-game-of-sticks/handout.html
+
+Table of contents:
+1.   Import modules.
+2.   Initialize global Variables.
+3.   Introduction to the game.
+4.   Instructions to the game.
+
 '''
 
 import random
@@ -14,6 +21,7 @@ prompt = '>>> '
 btw_10_100 = 'Please pick a number between 10 and 100'
 btw_1_3 = 'Please pick a number beteween 1 and 3.'
 play_again_msg = 'Play again (1 = yes, 0 = no)?'
+value_error_msg = 'Oops! Something went wrong. Please pick a NUMBER.'
 
 
 #Introduction to the game
@@ -39,20 +47,19 @@ while True:
 	else:
 		print "Please answer with a Y or N."
 
-
-
-
 while True:
-	print("How many sticks are there on the table initially (10-100)?")
-	num_sticks = int(raw_input(prompt))
+	try:
+		print("How many sticks are there on the table initially (10-100)?")
+		num_sticks = int(raw_input(prompt))
 
-	if 10<=num_sticks<=100:
-		print("Ok, there are %s sticks on the board.") % (num_sticks)
-		print("|")*num_sticks
-		break
-	else:
-		print (btw_10_100)
-
+		if 10<=num_sticks<=100:
+			print("Ok, there are %s sticks on the board.") % (num_sticks)
+			print("|")*num_sticks
+			break
+		else:
+			print (btw_10_100)
+	except ValueError:
+		print value_error_msg		
 
 #Initialize a dictionary that we will add to in the loop
 stick_dict={}
@@ -68,13 +75,16 @@ while True:
 
 		#Continues to iterate until you give a number between 1 and 3
 		while True:
-			print "Player 1: How many sticks do you take (1-3)?"
-			player_1 =  int(raw_input(prompt))
-			
-			if 1 <= player_1 <= 3:
-				break
-			else:
-				print (btw_1_3)
+			try:
+				print "Player 1: How many sticks do you take (1-3)?"
+				player_1 =  int(raw_input(prompt))
+				
+				if 1 <= player_1 <= 3:
+					break
+				else:
+					print (btw_1_3)
+			except ValueError:
+				print value_error_msg	
 
 		#Takes the user input and calculates the new number of sticks
 		num_sticks = num_sticks - player_1
@@ -96,7 +106,7 @@ while True:
 					num_sticks = 10
 
 		
-		#Just keep playing
+		#Keep playing
 		else:
 			print("Ok, there are %s sticks on the board.") % (num_sticks)
 			print("|")*num_sticks
