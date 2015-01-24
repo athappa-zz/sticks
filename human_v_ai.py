@@ -11,16 +11,48 @@ import sys
 
 #Global Variables used throughout
 prompt = '>>> ' 
+btw_10_100 = 'Please pick a number between 10 and 100'
 btw_1_3 = 'Please pick a number beteween 1 and 3.'
 play_again_msg = 'Play again (1 = yes, 0 = no)?'
 
 
 #Introduction to the game
 raw_input("Welcome to the game of sticks! Press <Enter> to continue...")
-print("How many sticks are there on the table initially (10-100)?")
-num_sticks = int(raw_input(prompt))
-print("Ok, there are %s sticks on the board.") % (num_sticks)
-print("|")*num_sticks
+
+#Add instructions
+while True:
+	print("Do you want the instructions for how to play sticks? Y/N")
+	instructions_ans = raw_input(prompt)
+
+	if instructions_ans.upper() == 'Y':
+		print '''
+		In the game of sticks you have two players and X sticks. Each player
+		takes turns and picks up between 1 to 3 sticks on their turn. The 
+		game continues until there is one stick left and the player who picks
+		up that stick loses.
+		'''
+		break
+
+	elif instructions_ans.upper() == 'N':
+		break
+
+	else:
+		print "Please answer with a Y or N."
+
+
+
+
+while True:
+	print("How many sticks are there on the table initially (10-100)?")
+	num_sticks = int(raw_input(prompt))
+
+	if 10<=num_sticks<=100:
+		print("Ok, there are %s sticks on the board.") % (num_sticks)
+		print("|")*num_sticks
+		break
+	else:
+		print (btw_10_100)
+
 
 #Initialize a dictionary that we will add to in the loop
 stick_dict={}
