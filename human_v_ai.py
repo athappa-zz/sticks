@@ -70,8 +70,10 @@ for number in range(1,num_sticks+1):
 #Create an "infinite loop" so the program will continue to iterate
 while True:
 	while num_sticks!=0:
-
-		#PLAYER 1
+        
+        #####################
+		###### PLAYER 1 #####
+		#####################
 
 		#Continues to iterate until you give a number between 1 and 3
 		while True:
@@ -94,7 +96,8 @@ while True:
 			print("Ok, there is %s stick on the board.") % (num_sticks)
 			print("|")*num_sticks
 
-		#Important: If Player 1 loses, then we keep the proper values
+		##### Important ##### 
+		#If Player 1 loses, then we keep the proper values
 		elif num_sticks < 1:
 			print("Player 1, you lose.")
 
@@ -104,16 +107,17 @@ while True:
 					stick_dict[key][0].append(stick_dict[key][1])
 					del stick_dict[key][1]
 					num_sticks = 10
+					print stick_dict
 
-		
 		#Keep playing
 		else:
 			print("Ok, there are %s sticks on the board.") % (num_sticks)
 			print("|")*num_sticks
 
 
-
-		#AI player
+        ######################
+		###### AI Player #####
+		######################
 
 		#Random guess generator
 		guess = random.choice(stick_dict["hat{0}".format(num_sticks)][0])
@@ -124,7 +128,7 @@ while True:
 
 		#Append that guess to a list that corresponds with the proper "hat"
 		stick_dict["hat{0}".format(num_sticks)].append(guess)
-		print stick_dict
+		#print stick_dict
 
 		#Calculates the number of sticks after the computer's guess
 		num_sticks = num_sticks - guess
@@ -134,7 +138,8 @@ while True:
 			print("Ok, there is %s stick on the board.") % (num_sticks)
 			print("|")*num_sticks
 
-		#Important: Here the AI loses, we delete its guesses, and reset num_sticks
+		##### Important #####
+		#Here the AI loses, we delete its guesses, and reset num_sticks
 		elif num_sticks < 1:
 			print("Player 2 (AI BOT), you lose.")
 			#If the AI loses
@@ -142,6 +147,7 @@ while True:
 				if len(stick_dict[key]) == 2:
 					del stick_dict[key][1]
 					num_sticks = 10
+					print stick_dict
 			#print(play_again_msg)
 			#play_again_binary = int(raw_input(prompt))
 
