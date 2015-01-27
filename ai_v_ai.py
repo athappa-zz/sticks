@@ -2,16 +2,10 @@
 
 '''
 Game of Sticks:
-Human v. AI Sticks
+AI v. AI Sticks
 Hat Tip: http://nifty.stanford.edu/2014/laaksonen-vihavainen-game-of-sticks/handout.html
-
-Table of contents:
-1.   Import modules.
-2.   Initialize global Variables.
-3.   Introduction to the game.
-4.   Instructions to the game.
-
 '''
+
 
 import random
 import sys
@@ -47,6 +41,8 @@ while True:
 	else:
 		print "Please answer with a Y or N."
 
+
+
 while True:
 	try:
 		print("How many sticks are there on the table initially (10-100)?")
@@ -62,40 +58,42 @@ while True:
 	except ValueError:
 		print value_error_msg		
 
+
+
+
 #Initialize a dictionary that we will add to in the loop
 stick_dict={}
 for number in range(1,num_sticks+1):
 	stick_dict["hat{0}".format(number)]=[[1,2,3]]
 
 
+
 #Create an "infinite loop" so the program will continue to iterate
 while True:
+
 	while num_sticks!=0:
+		
         
-        #####################
-		###### PLAYER 1 #####
-		#####################
+        ########################
+		###### AI PLAYER 1 #####
+		########################
 
-		#Continues to iterate until you give a number between 1 and 3
-		while True:
-			try:
-				print "Player 1: How many sticks do you take (1-3)?"
-				player_1 =  int(raw_input(prompt))
-				
-				if 1 <= player_1 <= 3:
-					break
-				else:
-					print (btw_1_3)
-			except ValueError:
-				print value_error_msg	
+		#Random guess generator
+		guess = random.choice(stick_dict["hat{0}".format(num_sticks)][0])
+		if guess > 1:
+			print "The computer chose %s sticks" % (guess)
+		elif guess == 1:
+			print "The computer chose %s stick" % (guess)
 
-		#Takes the user input and calculates the new number of sticks
-		num_sticks = num_sticks - player_1
+		
+		#Calculates the number of sticks after the computer's guess
+		num_sticks = num_sticks - guess
 
-		#Different messages for different conditions
+
 		if num_sticks == 1:
 			print("Ok, there is %s stick on the board.") % (num_sticks)
 			print("|")*num_sticks
+
 
 		##### Important ##### 
 		#If Player 1 loses, then we keep the proper values
@@ -110,15 +108,21 @@ while True:
 					num_sticks = reset
 					print stick_dict
 
+
+
 		#Keep playing
 		else:
 			print("Ok, there are %s sticks on the board.") % (num_sticks)
 			print("|")*num_sticks
 
 
-        ######################
-		###### AI Player #####
-		######################
+
+
+
+        ########################
+		###### AI PLAYER 2 #####
+		########################
+
 
 		#Random guess generator
 		guess = random.choice(stick_dict["hat{0}".format(num_sticks)][0])
@@ -149,15 +153,34 @@ while True:
 					del stick_dict[key][1]
 					num_sticks = reset
 					print stick_dict
-			#print(play_again_msg)
-			#play_again_binary = int(raw_input(prompt))
+
 
 		else:
 			print("Ok, there are %s sticks on the board.") % (num_sticks)
 			print("|")*num_sticks
 
 
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
