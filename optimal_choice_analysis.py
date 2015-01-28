@@ -52,10 +52,15 @@ print df.head(10)
 
 
 df = df[[1,2,3]]
-print df.head(10)
 
-df.plot(kind='bar')
-plt.show()
+from ggplot import *
+
+
+
+
+
+#df.plot(kind='bar')
+#plt.show()
 
 
 
